@@ -4,16 +4,18 @@ const dialog = document.querySelector('dialog');
 const addNewBtn = document.querySelector('.showModal');
 const submitBtn = document.getElementById('submit');
 
-function Book (title="unknown", author="unknown", page=0, readStatus=false) {
-    this.title = title;
-    this.author = author;
-    this.page = page;
-    this.readStatus = readStatus;
+class Book {
+    constructor(title = "unknown", author = "unknown", page = 0, readStatus = false) {
+        this.title = title;
+        this.author = author;
+        this.page = page;
+        this.readStatus = readStatus;
+    }
+    toggleRead() {
+        this.readStatus = !this.readStatus;
+    }
 }
 
-Book.prototype.toggleRead = function() {
-    this.readStatus = !this.readStatus;
-}
 
 function toggleRead(index) {
     myLibrary[index].toggleRead();
