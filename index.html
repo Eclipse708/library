@@ -21,16 +21,18 @@
             <button class="showModal btn add-btn">Add book</button>
             <div class="form-container">
                 <dialog id="bookModal" class="modal active">
-                    <form>
+                    <form novalidate>
                         <ul>
                             <h2>Add New Book</h2>
                             <li>
                                 <label for="Title"></label>
                                 <input class="input" type="text" id="title" placeholder="Title" name="book_title" maxlength="100" required="">
+                                <span id="title-error"></span>
                             </li>
                             <li>
                                 <label for="Author"></label>
                                 <input class="input" type="text" id="author" placeholder="Author" name="book_author" maxlength="100" required="">
+                                <span id="author-error"></span>
                             </li>
                             <li>
                                 <label for="Pages"></label>

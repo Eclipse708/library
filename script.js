@@ -3,6 +3,9 @@ const books = document.querySelector('.books');
 const dialog = document.querySelector('dialog');
 const addNewBtn = document.querySelector('.showModal');
 const submitBtn = document.getElementById('submit');
+const titleError = document.getElementById('title-error');
+const authorError = document.getElementById('author-error');
+const pageError = document.getElementById('page-error');
 
 class Book {
     constructor(title = "unknown", author = "unknown", page = 0, readStatus = false) {
@@ -69,25 +72,67 @@ function remove(index) {
     render();
 }
 
+showError = (inputName) => {
+    if (inputName.value.length === 0) {
+        console.log(`${inputName.name} is 0`);
+        if (inputName.name === 'book_title') {
+            titleError.textContent = 'Title is empty';
+
+        } else if (inputName.name === 'book_author') {
+            authorError.textContent = 'Author is empty';
+        } else if (inputName.name === 'book_page') {
+            inputName.style.border = '1px solid';
+            inputName.style.borderColor = 'red';
+        }
+    } else {
+        if (inputName.name === 'book_title') {
+            titleError.textContent = '';
+            
+        } else if (inputName.name === 'book_author') {
+            authorError.textContent = '';
+        } else if (inputName.name === 'book_page') {
+            inputName.style.border = 'none';
+        }
+    }
+}
+
 function addBookToLibrary() {
   
+  const form = document.querySelector('form');
+  const inputs = document.querySelectorAll('input');
+  const title = document.getElementById('title');
+  const author = document.getElementById('author');
+  const page = document.getElementById('page'); 
+  
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    
+    inputs.forEach(input => {
+        showError(input);
+    })
+
+    if (title.value.length === 0) {
+        showError(title);
+    } else if (author.value.length === 0) {
+        showError(author)
+    } else if (page.value.length === 0) {
+        showError(page)
+    } else {
+        const newTitle = title.value;
+        const newAuthor = author.value;
+        const newPage = page.value;
+        const readStatus = document.getElementById('readStatus').checked;
+        let newBook =  new Book(newTitle, newAuthor, newPage, readStatus);
+        myLibrary.push(newBook);
+        
+        render(); 
+        dialog.close();
+    }
+  });
   addNewBtn.addEventListener('click', function() {
     dialog.showModal();
   })
   
-  submitBtn.addEventListener('click', (event)=> {
-    event.preventDefault();
-
-    const title = document.getElementById('title').value;
-    const author = document.getElementById('author').value;
-    const page = document.getElementById('page').value;
-    const readStatus = document.getElementById('readStatus').checked;
-    let newBook =  new Book(title, author, page, readStatus);
-    myLibrary.push(newBook);
-    
-    render(); 
-    dialog.close();
-  });
 }
 
 

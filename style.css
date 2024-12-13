@@ -160,3 +160,8 @@ input:hover {
 .checkbox:hover {
     cursor: pointer;
 }
+
+#title-error,
+#author-error {
+    color: red;
+}
